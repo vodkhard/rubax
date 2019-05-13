@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11
+    volumes:
+      - /tmp/rubax/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=docker
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=s3cr3t
+
+  ruby:
+    build:
+      context: .
+      dockerfile: .docker/ruby/Dockerfile
+    command: ["rails", "server", "-b", "0.0.0.0"]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./back:/webapp
+    depends_on:
+      - db
+
+  front:
+    container_name: vuejs-front
+    image: node:10-alpine
+    working_dir: /home/myproject/front
+    volumes:
+      - ./front:/home/myproject/front
+    ports:
+      - "8080:8080"
+    command: ["yarn", "serve"]

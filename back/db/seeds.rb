@@ -1,0 +1,58 @@
+# frozen_string_literal: true
+
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
+
+require 'faker'
+
+1.times do
+  User.create(
+    name: 'Hugo',
+    username: 'admin',
+    email: 'admin@test.com',
+    password: 'azertyuiop'
+  )
+end
+
+10.times do
+  User.create(
+    name: Faker::Name.name,
+    username: Faker::Internet.username,
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
+  )
+end
+
+10.times do
+  Category.create(label: Faker::Book.genre)
+end
+
+100.times do
+  post = Post.create(
+    title: Faker::Book.title,
+    content: Faker::Lorem.paragraph(20),
+    published: Faker::Boolean.boolean,
+    user_id: Faker::Number.between(1, 10),
+    category_id: Faker::Number.between(1, 10)
+  )
+
+  Faker::Number.between(1, 10).times do
+    Upvote.create(
+      user_id: Faker::Number.between(1, 10),
+      post_id: post.id
+    )
+  end
+
+  Faker::Number.between(1, 10).times do
+    Comment.create(
+      name: Faker::DcComics.hero,
+      message: Faker::Lorem.paragraph,
+      post_id: post.id
+    )
+  end
+end
