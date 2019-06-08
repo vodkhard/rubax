@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1>Login</h1>
-    <p v-if="$route.query.redirect">
-      You need to login first.
-    </p>
+    <p v-if="$route.query.redirect">You need to login first.</p>
     <form @submit.prevent="onSubmit">
       <label>
         Email
@@ -20,25 +18,27 @@
 </template>
 
 <script>
-  import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
-  export default {
-    name: "login",
-    data() {
-      return {
-        email: 'admin@test.com',
-        password: 'azertyuiop',
-        error: false
-      }
+export default {
+  name: "login",
+  data() {
+    return {
+      email: "admin@test.com",
+      password: "azertyuiop",
+      error: false
+    };
+  },
+  computed: {
+    ...mapState(["token"])
+  },
+  methods: {
+    onSubmit() {
+      this.login({
+        data: { auth: { email: this.email, password: this.password } }
+      });
     },
-    computed: {
-      ...mapState(['token'])
-    },
-    methods: {
-      onSubmit() {
-        this.login({data: {auth: {email: this.email, password: this.password}}});
-      },
-      ...mapActions(["login"])
-    }
+    ...mapActions(["login"])
   }
+};
 </script>

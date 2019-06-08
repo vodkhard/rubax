@@ -1,8 +1,9 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="5">
-    <div v-for="post in posts">
+    <div v-for="post in posts" :key="`post-${post.id}`">
       <router-link tag="h3" :to="{name: 'post-show', params: { id: post.id }}">
-        <code>{{ post.id }}</code> {{ post.title }}
+        <code>{{ post.id }}</code>
+        {{ post.title }}
       </router-link>
       <code>{{ post.category.label }}</code>
       <code>{{ post.upvotes }}</code>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import infiniteScroll from 'vue-infinite-scroll';
+import infiniteScroll from "vue-infinite-scroll";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -29,7 +30,7 @@ export default {
     return {
       page: 1,
       busy: false
-    }
+    };
   },
   computed: {
     ...mapState(["posts"])

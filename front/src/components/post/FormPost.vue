@@ -1,7 +1,7 @@
 <template>
   <form>
     <label for="title">Title</label>
-    <input placeholder="Title" id="title" v-model="form.title" />
+    <input placeholder="Title" id="title" v-model="form.title">
 
     <label for="content">Content</label>
     <textarea placeholder="Content" id="content" v-model="form.content" :rows="5"></textarea>

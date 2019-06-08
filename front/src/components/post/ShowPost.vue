@@ -9,7 +9,7 @@
     </div>
     <div>
       <h3>Comments :</h3>
-      <ListComment :comments="post.comments" />
+      <ListComment :comments="post.comments"/>
     </div>
   </div>
 </template>
@@ -24,22 +24,22 @@ export default {
     ListComment
   },
   beforeMount() {
-    this.getPost({params: this.$route.params});
+    this.getPost({ params: this.$route.params });
   },
   data() {
     return {
       can_vote: true
-    }
+    };
   },
   computed: {
     ...mapState(["post"])
   },
   methods: {
     upvote(post_id) {
-      this.upvotePost({params: {post_id}});
+      this.upvotePost({ params: { post_id } });
       this.can_vote = false;
     },
     ...mapActions(["getPost", "upvotePost"])
   }
-}
+};
 </script>
