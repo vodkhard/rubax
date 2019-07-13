@@ -33,9 +33,11 @@ end
 end
 
 100.times do
+  @type = Faker::Boolean.boolean ? 'content' : 'link'
   post = Post.create(
     title: Faker::Book.title,
-    content: Faker::Lorem.paragraph(20),
+    content: @type == 'content' ? Faker::Lorem.paragraph(20) : Faker::Internet.url,
+    post_type: @type,
     published: Faker::Boolean.boolean,
     user_id: Faker::Number.between(1, 10),
     category_id: Faker::Number.between(1, 10)

@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_04_25_113423) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "label"
     t.datetime "created_at", null: false
@@ -30,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_04_25_113423) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
+    t.string "post_type"
     t.boolean "published", default: false
     t.string "image", default: "https://via.placeholder.com/150"
     t.integer "category_id"

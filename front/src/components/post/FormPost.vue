@@ -1,12 +1,29 @@
 <template>
-  <form>
+  <form @submit="onSubmit">
     <label for="title">Title</label>
     <input placeholder="Title" id="title" v-model="form.title">
 
-    <label for="content">Content</label>
-    <textarea placeholder="Content" id="content" v-model="form.content" :rows="5"></textarea>
+    <label for="type">Post Type</label>
+    <select name="type" id="type" v-model="form.type">
+      <option value="content">Content</option>
+      <option value="link">Link</option>
+    </select>
 
-    <button type="submit" class="button" @click="onSubmit">Create</button>
+    <template v-if="form.type === 'content'">
+      <label>Content</label>
+      <textarea placeholder="Content" v-model="form.content" :rows="5"></textarea>
+    </template>
+    <template v-else>
+      <label>Link</label>
+      <input type="url" v-model="form.content">
+    </template>
+
+    <label for="category">Category</label>
+    <select name="category" id="category" v-model="form.category_id">
+      <option v-for="category in categories" :value="category.id">{{ category.label }}</option>
+    </select>
+
+    <button type="submit" class="button" >Create</button>
   </form>
 </template>
 
@@ -21,18 +38,28 @@ export default {
       form: {
         title: "",
         content: "",
-        user_id: 1
+        type: "content",
+        user_id: 1,
+        category_id: null,
       }
     };
   },
   computed: {
-    ...mapState(["post"])
+    ...mapState(["post", "categories"])
+  },
+  mounted() {
+    this.loadCategories();
   },
   methods: {
-    onSubmit() {
-      this.createPost({ data: this.form });
+    onSubmit(e) {
+      e.preventDefault();
+      this.createPost({ data: this.form }).then(res => {
+        if (res.status === 201) {
+          this.$router.push('/')
+        }
+      });
     },
-    ...mapActions(["createPost"])
+    ...mapActions(["createPost", "loadCategories"])
   }
 };
 </script>

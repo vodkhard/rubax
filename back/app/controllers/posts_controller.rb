@@ -3,7 +3,9 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc)
+
+    @posts = @posts.where(category_id: params[:category]) if params[:category]
 
     paginate json: @posts, per_page: 10
   end
@@ -13,6 +15,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    puts post_params
     @post = Post.new(post_params)
 
     if @post.save
@@ -45,6 +48,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:title, :content, :user_id)
+    params.permit(:title, :content, :post_type, :user_id, :category_id)
   end
 end

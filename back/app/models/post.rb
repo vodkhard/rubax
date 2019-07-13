@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  validates_presence_of :title, :content, :user_id, :category_id
+  validates_presence_of :title, :content, :post_type, :user_id, :category_id
 
   has_many :comments
   has_many :upvotes

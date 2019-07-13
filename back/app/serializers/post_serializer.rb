@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :content, :published, :image, :created_at, :updated_at, :upvotes
+  attributes :id, :title, :content, :post_type, :published, :image, :created_at, :updated_at, :upvotes
   belongs_to :user
   belongs_to :category
   has_many :comments

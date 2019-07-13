@@ -36,6 +36,8 @@ export default {
     onSubmit() {
       this.login({
         data: { auth: { email: this.email, password: this.password } }
+      }).then(() => {
+        this.$router.push('/');
       });
     },
     ...mapActions(["login"])

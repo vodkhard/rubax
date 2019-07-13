@@ -13,13 +13,19 @@ const posts = new Vapi({
   }
 })
   .get({
-    action: "loadPosts",
+    action: "loadMorePosts",
     property: "posts",
     path: "/posts",
     queryParams: true,
     onSuccess(state, payload) {
       state.posts = [...state.posts, ...payload.data];
     }
+  })
+  .get({
+    action: "loadPosts",
+    property: "posts",
+    path: "/posts",
+    queryParams: true
   })
   .get({
     action: "getPost",
@@ -47,6 +53,11 @@ const posts = new Vapi({
     onSuccess(state, payload) {
       localStorage.setItem('token', payload.data.jwt);
     }
+  })
+  .get({
+    action: "loadCategories",
+    property: "categories",
+    path: "/categories"
   })
   .getStore();
 
