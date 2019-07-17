@@ -1,4 +1,5 @@
 class UpvotesController < ApplicationController
+  before_action :authenticate_user
   before_action :set_upvote, only: %i[show update destroy]
 
   # GET /upvotes
@@ -16,12 +17,17 @@ class UpvotesController < ApplicationController
   # POST /upvotes
   def create
     params[:user_id] = current_user.id
-    @upvote = Upvote.new(upvote_params)
 
-    if @upvote.save
-      render json: @upvote, status: :created
+    if Upvote.exists?(user_id: params[:user_id])
+      render status: :conflict
     else
-      render json: @upvote.errors, status: :unprocessable_entity
+      @upvote = Upvote.new(upvote_params)
+
+      if @upvote.save
+        render json: @upvote, status: :created
+      else
+        render json: @upvote.errors, status: :unprocessable_entity
+      end
     end
   end
 
