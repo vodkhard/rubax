@@ -7,3 +7,9 @@
     </div>
   </div>
 </template>
+
+<style>
+  html, body {
+    font-size: 12px!important;
+  }
+</style>
