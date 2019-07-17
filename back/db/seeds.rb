@@ -52,9 +52,9 @@ end
 
   Faker::Number.between(1, 10).times do
     Comment.create(
-      name: Faker::DcComics.hero,
       message: Faker::Lorem.paragraph,
-      post_id: post.id
+      post_id: post.id,
+      user_id: Faker::Number.between(1, 10)
     )
   end
 end
