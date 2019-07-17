@@ -22,12 +22,13 @@ ActiveRecord::Schema.define(version: 2019_04_25_113423) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "name"
     t.text "message"
     t.integer "post_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
