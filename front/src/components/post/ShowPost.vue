@@ -6,7 +6,7 @@
     <Clap :post="post"></Clap>
     <div>
       <h3>Comments :</h3>
-      <ListComment :comments="post.comments"/>
+      <ListComment :comments="post.comments" :post_id="post.id"/>
     </div>
   </div>
 </template>

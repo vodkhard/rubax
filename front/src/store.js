@@ -54,6 +54,16 @@ const posts = new Vapi({
       localStorage.setItem('token', payload.data.jwt);
     }
   })
+  .post({
+    action: "postComment",
+    path: ({post_id}) => `/posts/${post_id}/comments`,
+    onSuccess(state, payload) {
+      state.post.comments = [
+          ...state.post.comments,
+          payload.data
+      ];
+    }
+  })
   .get({
     action: "loadCategories",
     property: "categories",
