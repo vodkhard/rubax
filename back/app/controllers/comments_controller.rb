@@ -16,8 +16,12 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
+    if Comment.exists?(user_id: current_user.id, post_id:params[:post_id])
+      render status: :conflict
+    end
+
     @comment = Comment.new(comment_params)
-    @comment.user_id = current_user.id
+    @comment.user = current_user
 
     if @comment.save
       render json: @comment, status: :created
