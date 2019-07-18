@@ -3,12 +3,6 @@
     <label for="title">Title</label>
     <input placeholder="Title" id="title" v-model="form.title">
 
-    <label for="type">Post Type</label>
-    <select name="type" id="type" v-model="form.type">
-      <option value="content">Content</option>
-      <option value="link">Link</option>
-    </select>
-
     <template v-if="form.type === 'content'">
       <label>Content</label>
       <textarea placeholder="Content" v-model="form.content" :rows="5"></textarea>
@@ -18,10 +12,21 @@
       <input type="url" v-model="form.content">
     </template>
 
-    <label for="category">Category</label>
-    <select name="category" id="category" v-model="form.category_id">
-      <option v-for="category in categories" :value="category.id">{{ category.label }}</option>
-    </select>
+    <div class="row">
+      <div class="column">
+        <label for="type">Post Type</label>
+        <select name="type" id="type" v-model="form.type">
+          <option value="content">Content</option>
+          <option value="link">Link</option>
+        </select>
+      </div>
+      <div class="column">
+        <label for="category">Category</label>
+        <select name="category" id="category" v-model="form.category_id">
+          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.label }}</option>
+        </select>
+      </div>
+    </div>
 
     <button type="submit" class="button" >Create</button>
   </form>

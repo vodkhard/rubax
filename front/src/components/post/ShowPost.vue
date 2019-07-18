@@ -1,9 +1,9 @@
 <template>
   <div>
-    <router-link tag="button" class="button" :to="{ name: 'post-list' }">Go back to the list</router-link>
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <Clap :post="post"></Clap>
+    <hr>
     <div>
       <h3>Comments :</h3>
       <ListComment :comments="post.comments" :post_id="post.id"/>

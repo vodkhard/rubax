@@ -32,6 +32,11 @@ export default {
   computed: {
     ...mapState(["token"])
   },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      this.$router.push('/');
+    }
+  },
   methods: {
     onSubmit() {
       this.login({

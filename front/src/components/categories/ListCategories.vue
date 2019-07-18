@@ -4,6 +4,7 @@
     <div>
       <button
         v-for="category in categories"
+        :key="category.id"
         :class="getButtonClass(category)"
         @click="filterCategory(category.id)"
       >{{ category.label }}</button>

@@ -5,10 +5,8 @@ const customAxios = axios.create({
   headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`},
 });
 
-customAxios.interceptors.response.use(function (res) {
-  return res;
-}, function ({ request, response }) {
-  if (response.status === 401) {
+customAxios.interceptors.response.use((res) => res, ({ response }) => {
+  if (response.status === 401 && window.location !== '/login') {
     window.location = '/login';
   }
 });

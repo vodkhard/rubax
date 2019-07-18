@@ -7,21 +7,32 @@
       <div v-for="post in posts" :key="`post-${post.id}`">
         <a v-if="post.post_type === 'link'" :href="post.content" target="_blank">
           <h3>
-            <small>link</small>
             <code>{{ post.id }}</code>
             {{ post.title }}
+            <vue-feather
+              type="link"
+            />
           </h3>
         </a>
-        <router-link v-else tag="h3" :to="{name: 'post-show', params: { id: post.id }}">
-          <code>{{ post.id }}</code>
-          {{ post.title }}
-        </router-link>
+        <template v-else>
+          <router-link tag="h3" :to="{name: 'post-show', params: { id: post.id }}">
+            <code>{{ post.id }}</code>
+            {{ post.title }}
+          </router-link>
+          <p>{{ truncate(post.content) }}</p>
+        </template>
         <code>{{ post.category.label }}</code>
         <code>{{ post.upvotes }}</code>
         <Clap :post="post"></Clap>
         <hr>
       </div>
     </div>
+    <vue-feather
+      v-if="posts.length === 0 || busy"
+      type="loader"
+      animation="spin"
+      size="48"
+    />
   </div>
 </template>
 
@@ -37,6 +48,7 @@
 <script>
 import infiniteScroll from "vue-infinite-scroll";
 import { mapState, mapActions } from "vuex";
+import { truncate } from 'lodash'
 import Clap from "@/components/post/Clap";
 import ListCategories from "@/components/categories/ListCategories";
 
@@ -76,6 +88,12 @@ export default {
         this.page += 1;
         this.getPosts();
       }
+    },
+    truncate(string) {
+      return truncate(string, {
+        length: 80,
+        separator: ' '
+      })
     },
     ...mapActions(["loadMorePosts", "loadPosts"])
   },
