@@ -1,6 +1,8 @@
 <template>
   <div>
     <ListCategories />
+    <hr>
+    <h1>Trending posts</h1>
     <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="5">
       <div v-for="post in posts" :key="`post-${post.id}`">
         <a v-if="post.post_type === 'link'" :href="post.content" target="_blank">
