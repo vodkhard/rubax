@@ -13,7 +13,7 @@
 
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "list-categories",
@@ -31,7 +31,11 @@ export default {
       }
     },
     filterCategory(id) {
-      this.$router.push({ name: 'post-list', query: { category: id } });
+      if (id === +this.$route.query.category) {
+        this.$router.push({ name: 'post-list' });
+      } else {
+        this.$router.push({ name: 'post-list', query: { category: id } });
+      }
     },
     ...mapActions(["loadCategories"])
   }
