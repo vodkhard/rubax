@@ -3,7 +3,7 @@
     <label for="title">Title</label>
     <input placeholder="Title" id="title" v-model="form.title">
 
-    <template v-if="form.type === 'content'">
+    <template v-if="form.post_type === 'content'">
       <label>Content</label>
       <textarea placeholder="Content" v-model="form.content" :rows="5"></textarea>
     </template>
@@ -15,7 +15,7 @@
     <div class="row">
       <div class="column">
         <label for="type">Post Type</label>
-        <select name="type" id="type" v-model="form.type">
+        <select name="type" id="type" v-model="form.post_type">
           <option value="content">Content</option>
           <option value="link">Link</option>
         </select>
@@ -43,7 +43,7 @@ export default {
       form: {
         title: "",
         content: "",
-        type: "content",
+        post_type: "content",
         user_id: 1,
         category_id: null,
       }
