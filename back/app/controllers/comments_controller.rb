@@ -16,17 +16,17 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    if Comment.exists?(user_id: current_user.id, post_id:params[:post_id])
+    if Comment.exists?(user: current_user, post_id: params[:post_id])
       render status: :conflict
-    end
-
-    @comment = Comment.new(comment_params)
-    @comment.user = current_user
-
-    if @comment.save
-      render json: @comment, status: :created
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      @comment = Comment.new(comment_params)
+      @comment.user = current_user
+
+      if @comment.save
+        render json: @comment, status: :created
+      else
+        render json: @comment.errors, status: :unprocessable_entity
+      end
     end
   end
 

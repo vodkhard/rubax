@@ -54,7 +54,7 @@ end
     Comment.create(
       message: Faker::Lorem.paragraph,
       post_id: post.id,
-      user_id: Faker::Number.between(1, 10)
+      user_id: Faker::Number.between(2, 10)
     )
   end
 end
