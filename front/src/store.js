@@ -56,6 +56,10 @@ const posts = new Vapi({
     }
   })
   .post({
+    action: "register",
+    path: "/users"
+  })
+  .post({
     action: "postComment",
     path: ({post_id}) => `/posts/${post_id}/comments`,
     onSuccess(state, payload) {

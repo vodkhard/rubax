@@ -14,6 +14,7 @@
       <button type="submit">login</button>
       <p v-if="error" class="error">Bad login information</p>
     </form>
+    <router-link :to="{name: 'register'}">Create an account</router-link>
   </div>
 </template>
 
