@@ -51,6 +51,7 @@ const posts = new Vapi({
     property: "token",
     path: "/auth/login",
     onSuccess(state, payload) {
+      repository.defaults.headers.common['Authorization'] = `Bearer ${payload.data.jwt}`;
       localStorage.setItem('token', payload.data.jwt);
     }
   })
